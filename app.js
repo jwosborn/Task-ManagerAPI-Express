@@ -27,7 +27,6 @@ MongoClient.connect(
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, "public")));
-    app.use(bodyParser.json());
 
     app.use("/", indexRouter);
     app.use("/login", loginRouter);
@@ -48,7 +47,7 @@ MongoClient.connect(
         .toArray()
         .then((results) => {
           console.log(results);
-          res.send(results);
+          res.json(results);
         })
         .catch((error) => console.error(error));
     });
@@ -69,8 +68,14 @@ MongoClient.connect(
         )
         .then((result) => {
           console.log(result);
-          res.send(JSON.stringify(result));
+          res.json(result);
         });
+    });
+    app.delete("/users", (req, res) => {
+      usersCollection.deleteOne({ email: req.body.email }).then((resp) => {
+        console.log(resp);
+        res.send(resp);
+      });
     });
   })
   .catch((err) => {
