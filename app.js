@@ -19,8 +19,6 @@ MongoClient.connect(
     const usersCollection = db.collection("users");
 
     var indexRouter = require("./routes/index");
-    var usersRouter = require("./routes/users");
-    var loginRouter = require("./routes/login");
 
     app.use(logger("dev"));
     app.use(express.json());
@@ -29,8 +27,6 @@ MongoClient.connect(
     app.use(express.static(path.join(__dirname, "public")));
 
     app.use("/", indexRouter);
-    app.use("/login", loginRouter);
-    // app.use("/users", usersRouter);
 
     app.post("/users", (req, res) => {
       usersCollection
@@ -72,10 +68,17 @@ MongoClient.connect(
         });
     });
     app.delete("/users", (req, res) => {
-      usersCollection.deleteOne({ email: req.body.email }).then((resp) => {
-        console.log(resp);
-        res.send(resp);
-      });
+      usersCollection
+        .deleteOne({ email: req.body.email })
+        .then((resp) => {
+          if (resp.deletedCount === 0) {
+            res.json("User not found");
+          } else {
+            console.log(resp);
+            res.send(resp);
+          }
+        })
+        .catch((error) => console.error(error));
     });
   })
   .catch((err) => {
