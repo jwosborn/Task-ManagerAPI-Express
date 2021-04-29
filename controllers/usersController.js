@@ -1,5 +1,5 @@
 var bodyParser = require("body-parser");
-const { addUser, getUsers } = require("../services/userService");
+const { addUser, getUsers, updateOneUser } = require("../services/userService");
 
 // createUser calls addUser and sends a response upon completion
 const createUser = async (req, res) => {
@@ -23,7 +23,20 @@ const getUserList = async (req, res) => {
   }
 };
 
+// UpdateUser sends a success status or throws an error
+const updateUser = async (req, res) => {
+  const { user } = req.body;
+  try {
+    newUser = await updateOneUser(user).then(r => {
+      res.sendStatus(200)
+    });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 module.exports = {
   createUser,
   getUserList,
+  updateUser,
 };

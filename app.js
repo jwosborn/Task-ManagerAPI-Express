@@ -17,5 +17,6 @@ const userRouter = require("./routes/users");
 
 app.post("/user", userRouter);
 app.get("/user", userRouter);
+app.put("/user", userRouter);
 
 module.exports = app;

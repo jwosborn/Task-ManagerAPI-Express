@@ -1,5 +1,6 @@
 // userDB returns Task-Manager.collection("users")
 const userDB = require("../db/userDB");
+var objectId = require('mongodb').ObjectId;
 
 // getUsers returns all users in the db.collection("users")
 const getUsers = async () => {
@@ -27,7 +28,19 @@ const addUser = async (user) => {
   }
 };
 
+// finds the user by _id and updates email
+const updateOneUser = async (user) => {
+  try {
+    dbUser = await userDB.userDB();
+    return dbUser.updateOne({ "_id": objectId(user._id) },
+      { $set: { email: user.email } });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 module.exports = {
   addUser,
   getUsers,
+  updateOneUser,
 };
