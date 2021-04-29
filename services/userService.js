@@ -1,8 +1,23 @@
-const { userDB } = require("../db/userDB");
+// userDB returns Task-Manager.collection("users")
+const userDB = require("../db/userDB");
+
+const getUsers = async () => {
+  try {
+    var dbUser = await userDB.userDB();
+    return dbUser
+      .find()
+      .toArray()
+      .then((data) => {
+        return data;
+      });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
 
 const addUser = async (user) => {
   try {
-    userDB().then((response) => {
+    userDB.userDB().then((response) => {
       response.insertOne(user);
     });
   } catch (e) {
@@ -12,4 +27,5 @@ const addUser = async (user) => {
 
 module.exports = {
   addUser,
+  getUsers,
 };

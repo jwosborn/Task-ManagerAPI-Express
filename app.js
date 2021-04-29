@@ -16,5 +16,6 @@ app.use("/api", routes);
 const userRouter = require("./routes/users");
 
 app.post("/user", userRouter);
+app.get("/user", userRouter);
 
 module.exports = app;
