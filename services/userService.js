@@ -1,9 +1,10 @@
 // userDB returns Task-Manager.collection("users")
 const userDB = require("../db/userDB");
 
+// getUsers returns all users in the db.collection("users")
 const getUsers = async () => {
   try {
-    var dbUser = await userDB.userDB();
+    dbUser = await userDB.userDB();
     return dbUser
       .find()
       .toArray()
@@ -15,9 +16,10 @@ const getUsers = async () => {
   }
 };
 
+// addUser inserts a single user into db.collection("users")
 const addUser = async (user) => {
   try {
-    userDB.userDB().then((response) => {
+    await userDB.userDB().then((response) => {
       response.insertOne(user);
     });
   } catch (e) {

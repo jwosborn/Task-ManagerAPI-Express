@@ -3,6 +3,7 @@ dotenv.config();
 const MongoClient = require("mongodb").MongoClient;
 const MongoURL = process.env.MONGODB_URI;
 
+// userDB returns db.collection("users")
 const userDB = async () => {
   try {
     return await MongoClient.connect(MongoURL, {
