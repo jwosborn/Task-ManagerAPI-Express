@@ -28,7 +28,7 @@ const addUser = async (user) => {
   }
 };
 
-// finds the user by _id and updates email
+// finds the user by _id and updates email REQUIRES QUOTES AROUND "_id"
 const updateOneUser = async (user) => {
   try {
     dbUser = await userDB.userDB();
@@ -39,8 +39,20 @@ const updateOneUser = async (user) => {
   }
 };
 
+// finds and deletes one user
+const deleteOneUser = async (user) => {
+  try {
+    dbUser = await userDB.userDB();
+    return dbUser.deleteOne({ "_id": objectId(user._id) })
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+
 module.exports = {
   addUser,
   getUsers,
   updateOneUser,
+  deleteOneUser
 };
