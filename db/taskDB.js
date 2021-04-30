@@ -3,8 +3,8 @@ dotenv.config();
 const MongoClient = require("mongodb").MongoClient;
 const MongoURL = process.env.MONGODB_URI;
 
-const taskDB = (task) => {
-  MongoClient.connect(MongoURL, {
+const taskDB = () => {
+  return MongoClient.connect(MongoURL, {
     useUnifiedTopology: true,
   })
     .then((client) => {

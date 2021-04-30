@@ -27,7 +27,7 @@ const getUserList = async (req, res) => {
 const updateUser = async (req, res) => {
   const { user } = req.body;
   try {
-    newUser = await updateOneUser(user).then(r => {
+    await updateOneUser(user).then(r => {
       res.sendStatus(200)
     });
   } catch (e) {

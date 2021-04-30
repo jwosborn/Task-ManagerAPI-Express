@@ -14,10 +14,16 @@ app.use(express.json());
 
 app.use("/api", routes);
 const userRouter = require("./routes/users");
+const taskRouter = require("./routes/tasks");
 
 app.post("/user", userRouter);
 app.get("/user", userRouter);
 app.put("/user", userRouter);
 app.delete("/user", userRouter);
 
+
+app.post("/task", taskRouter);
+app.get("/task", taskRouter)
+app.put("/task", taskRouter);
+app.delete("/task", taskRouter);
 module.exports = app;
