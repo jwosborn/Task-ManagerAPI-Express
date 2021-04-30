@@ -8,7 +8,6 @@ const taskDB = () => {
     useUnifiedTopology: true,
   })
     .then((client) => {
-      console.log("Connected through service");
       const db = client.db("Task-Manager");
       return db.collection("tasks");
     })

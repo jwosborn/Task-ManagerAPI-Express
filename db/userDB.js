@@ -10,7 +10,6 @@ const userDB = async () => {
       useUnifiedTopology: true,
     })
       .then((client) => {
-        console.log("Connected through service");
         const db = client.db("Task-Manager");
         return db.collection("users");
       })
